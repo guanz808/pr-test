@@ -30,12 +30,13 @@ jobs:
     if: github.ref == 'refs/heads/staging'
     name: staging 
     uses: ./.github/workflows/reusable.yaml
-      with:
-        environment: staging
+    with:
+      environment: staging
 #### prod ######################################################################################
   prod:
     needs: staging
     if: github.event_name == 'pull_request' && github.event.action == 'opened' || github.ref == 'refs/heads/main'
     name: prod
     uses: ./.github/workflows/reusable.yaml
-      environment: prodif: github.event_name == 'pull_request' && github.event.action == 'opened' || github.ref == 'refs/heads/main'
+    with:  
+      environment: prod
