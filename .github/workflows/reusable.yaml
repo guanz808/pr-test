@@ -36,19 +36,22 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     #- name: Checkout code
     #  uses: actions/checkout@v3
-    if: contains(github.ref, 'refs/heads/staging') || github.event_name == 'pull_request' && github.event.action == 'opened'
+    
     # Get the short SHA of the commit    
-    - name: Get short SHA of the commit 
+    - name: Get short SHA of the commit
+      if: contains(github.ref, 'refs/heads/staging') || github.event_name == 'pull_request' && github.event.action == 'opened' 
       id: get-short-sha_commit
       run: |
         SHORT_SHA_COMMIT=$(echo $GITHUB_SHA | cut -c1-7)
         echo "short_sha_commit=$SHORT_SHA_COMMIT" >> $GITHUB_OUTPUT
 
     - name: Print short SHA commit
+      if: contains(github.ref, 'refs/heads/staging') || github.event_name == 'pull_request' && github.event.action == 'opened'
       run: echo "The commit short sha is ${{ steps.get-short-sha_commit.outputs.short_sha_commit }}"    
 
     # If the exit code is 2 the Terraform Apply Job will run.  If the exit code is 0 or 1 the Terraform Apply Job will not run.
     - name: Terraform Plan
+      if: contains(github.ref, 'refs/heads/staging') || github.event_name == 'pull_request' && github.event.action == 'opened'
       id: tf-plan    
       run: |
         export exitcode=2
