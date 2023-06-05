@@ -11,7 +11,10 @@ on:
       get-short-sha_commit:
         description: 'Get short SHA of the commit'
         value: ${{ jobs.terraform-plan.outputs.get-short-sha_commit }}
-  
+      tfplanExitCode:  
+        description: 'Exit code'
+        value: ${{ jobs.terraform-plan.outputs.tfplanExitCode }}
+
 # Permissions 
 permissions:
   contents: read       # needed for checkout
