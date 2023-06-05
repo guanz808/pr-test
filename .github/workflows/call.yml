@@ -1,0 +1,41 @@
+name: '🚀 Call Workflow'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+    - staging
+    #paths-ignore:
+    #- '.*'
+    #- '!.dockerignore'
+    #- 'CHANGELOG.md'
+    #- 'README.md'
+    #- 'docs/'
+    #- 'Makefile'
+    #- '.github/'
+    #- 'infrastructure.*'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+#### staging ######################################################################################
+  staging:
+    if: github.ref == 'refs/heads/staging'
+    name: staging 
+    uses: ./.github/workflows/reusable.yaml
+      with:
+        environment: staging
+#### prod ######################################################################################
+  prod:
+    needs: staging
+    if: github.event_name == 'pull_request' && github.event.action == 'opened' || github.ref == 'refs/heads/main'
+    name: prod
+    uses: ./.github/workflows/reusable.yaml
+      environment: prodif: github.event_name == 'pull_request' && github.event.action == 'opened' || github.ref == 'refs/heads/main'
