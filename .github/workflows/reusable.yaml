@@ -25,7 +25,6 @@ jobs:
 ##### PLAN STAGE ##################################################################################################
 ###################################################################################################################  
   terraform-plan:
-    if: contains(github.ref, 'refs/heads/staging') || github.event_name == 'pull_request' && github.event.action == 'opened'
     name: Terraform Plan
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }} 
@@ -37,7 +36,7 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     #- name: Checkout code
     #  uses: actions/checkout@v3
-
+    if: contains(github.ref, 'refs/heads/staging') || github.event_name == 'pull_request' && github.event.action == 'opened'
     # Get the short SHA of the commit    
     - name: Get short SHA of the commit 
       id: get-short-sha_commit
@@ -64,7 +63,7 @@ jobs:
     #if: github.event_name == 'pull_request' && github.event.action == 'opened' || github.ref == 'refs/heads/main' 
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }} 
-    #needs: [terraform-plan]
+    needs: [terraform-plan]
     
     steps:   
     # Checkout the repository to the GitHub Actions runner
