@@ -42,7 +42,7 @@ jobs:
         echo "short_sha_commit=$SHORT_SHA_COMMIT" >> $GITHUB_OUTPUT
 
     - name: Print short SHA commit
-      run: echo "The commit short sha is ${{ steps.get-short-sha.outputs.short_sha_commit }}"    
+      run: echo "The commit short sha is ${{ steps.get-short-sha_commit.outputs.short_sha_commit }}"    
 
     # If the exit code is 2 the Terraform Apply Job will run.  If the exit code is 0 or 1 the Terraform Apply Job will not run.
     - name: Terraform Plan
