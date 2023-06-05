@@ -37,7 +37,6 @@ jobs:
       environment: staging
 #### prod ######################################################################################
   prod:
-    needs: staging
     if: github.event_name == 'pull_request' && github.event.action == 'opened' || github.ref == 'refs/heads/main'
     name: prod
     uses: ./.github/workflows/reusable.yaml
