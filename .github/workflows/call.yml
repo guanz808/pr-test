@@ -37,7 +37,7 @@ jobs:
       environment: staging
 #### prod ######################################################################################
   prod:
-    if: github.event_name == 'pull_request' #&& github.event.action == 'opened' || github.event.pull_request.merged == true  
+    if: github.event_name == 'pull_request' && github.ref == 'refs/heads/main' #&& github.event.action == 'opened' || github.event.pull_request.merged == true  
     name: prod
     uses: ./.github/workflows/reusable.yaml
     with:  
