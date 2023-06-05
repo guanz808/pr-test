@@ -61,7 +61,7 @@ jobs:
   terraform-apply:
     name: 'Terraform Apply'
     if: contains(github.ref, 'refs/heads/staging') && needs.terraform-plan.outputs.tfplanExitCode == 2 || contains(github.ref, 'refs/heads/main') #&& github.event.action == 'closed'  #&& needs.terraform-plan.outputs.tfplanExitCode == 2
-    3if: github.event_name == 'pull_request' && github.event.action == 'opened' || github.ref == 'refs/heads/main' 
+    #if: github.event_name == 'pull_request' && github.event.action == 'opened' || github.ref == 'refs/heads/main' 
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }} 
     needs: [terraform-plan]
