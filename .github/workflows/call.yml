@@ -16,7 +16,7 @@ on:
     #- '.github/'
     #- 'infrastructure.*'
   pull_request:                            
-    types: [ opened ]  
+    types: [ opened, closed ]  
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -37,7 +37,7 @@ jobs:
       environment: staging
 #### prod ######################################################################################
   prod:
-    if: github.event_name == 'pull_request' && github.event.action == 'opened' || github.ref == 'refs/heads/main' 
+    if: github.event_name == 'pull_request' && github.event.action == 'opened' || github.event_name == 'pull_request' && github.event.action == 'closed' #github.ref == 'refs/heads/main' 
     name: prod
     uses: ./.github/workflows/reusable.yaml
     with:  
