@@ -16,7 +16,7 @@ on:
     #- '.github/'
     #- 'infrastructure.*'
   pull_request:                            
-    types: [ opened, closed ]  
+    types: [ opened ]  
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
